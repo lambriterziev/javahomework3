@@ -91,11 +91,6 @@ public class HangmanGameService implements GameService {
   }
 
   @Override
-  public List<HangmanGame> getAllGames(){
-    return this.gameRepository.findAll();
-  }
-
-  @Override
   public List<HangmanGame> findAllByStatus(Status status){
     return gameRepository.findByStatus(status);
   }
@@ -141,6 +136,10 @@ public class HangmanGameService implements GameService {
       stringBuilder.append(PLACEHOLDER_SYMBOL);
     }
     return stringBuilder.toString();
+  }
+@Override
+  public List<HangmanGame> getLatestGames() {
+    return gameRepository.findTop10ByOrderByStartedOnDateDesc();
   }
 
 }
